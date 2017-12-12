@@ -6,14 +6,15 @@ import six.moves.urllib as urllib
 import tarfile
 import tensorflow as tf
 import json
+import sys
 
 if tf.__version__ != '1.4.0':
   raise ImportError('Please upgrade your tensorflow installation to v1.4.0!')
 
 # ENV SETUP  ### CWH: remove matplot display and manually add paths to references
-
+sys.path.append("..")
 # Object detection imports
-from object_detection.utils import label_map_util    ### CWH: Add object_detection path
+from utils import label_map_util    ### CWH: Add object_detection path
 
 # Model Preparation
 
@@ -26,7 +27,7 @@ DOWNLOAD_BASE = 'http://download.tensorflow.org/models/object_detection/'
 PATH_TO_CKPT = MODEL_NAME + '/frozen_inference_graph.pb'
 
 # List of the strings that is used to add correct label for each box.
-PATH_TO_LABELS = os.path.join('object_detection/data', 'mscoco_label_map.pbtxt') ### CWH: Add object_detection path
+PATH_TO_LABELS = os.path.join('data', 'mscoco_label_map.pbtxt') ### CWH: Add object_detection path
 
 NUM_CLASSES = 90
 
@@ -77,7 +78,7 @@ with detection_graph.as_default():
 # added to put object in JSON
 class Object(object):
     def __init__(self):
-        self.name="webrtcHacks TensorFlow Object Detection REST API"
+        self.name="TensorFlow Object Detection REST API"
 
     def toJSON(self):
         return json.dumps(self.__dict__)
@@ -105,12 +106,12 @@ def get_objects(image, threshold=0.5):
     item.version = "0.0.1"
     item.numObjects = obj_above_thresh
     item.threshold = threshold
-    output.append(item)
+    #output.append(item)
 
     for c in range(0, len(classes)):
         class_name = category_index[classes[c]]['name']
         if scores[c] >= threshold:      # only return confidences equal or greater than the threshold
-            print(" object %s - score: %s, coordinates: %s" % (class_name, scores[c], boxes[c]))
+            print(" object: %s - score: %s, coordinates: %s" % (class_name, scores[c], boxes[c]))
 
             item = Object()
             item.name = 'Object'
