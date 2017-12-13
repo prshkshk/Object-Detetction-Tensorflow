@@ -8,8 +8,8 @@ import tensorflow as tf
 import json
 import sys
 
-if tf.__version__ != '1.4.0':
-  raise ImportError('Please upgrade your tensorflow installation to v1.4.0!')
+#if tf.__version__ != '1.4.0':
+#  raise ImportError('Please upgrade your tensorflow installation to v1.4.0!')
 
 # ENV SETUP  ### CWH: remove matplot display and manually add paths to references
 sys.path.append("..")
