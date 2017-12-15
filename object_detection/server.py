@@ -5,7 +5,6 @@ from flask import Flask, request, Response
 
 app = Flask(__name__)
 
-# for CORS
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
@@ -31,13 +30,7 @@ def remote():
 
 @app.route('/test')
 def test():
-    PATH_TO_TEST_IMAGES_DIR = 'object_detection/test_images'  # cwh
-    TEST_IMAGE_PATHS = [os.path.join(PATH_TO_TEST_IMAGES_DIR, 'image{}.jpg'.format(i)) for i in range(1, 3)]
-
-    image = Image.open(TEST_IMAGE_PATHS[0])
-    objects = object_detection_api.get_objects(image)
-
-    return objects
+    return Response(open('./static/test.html').read(), mimetype="text/html")
 
 
 @app.route('/image', methods=['POST'])
@@ -48,7 +41,7 @@ def image():
         # Set an image confidence threshold value to limit returned data
         threshold = request.form.get('threshold')
         if threshold is None:
-            threshold = 0.5
+            threshold = 0.3
         else:
             threshold = float(threshold)
 
@@ -63,8 +56,5 @@ def image():
 
 
 if __name__ == '__main__':
-	# without SSL
-    app.run(debug=True, host='0.0.0.0',port= 80)
+    app.run(debug=True, host='localhost',port= 80)
 
-	# with SSL
-    #app.run(debug=True, host='0.0.0.0', ssl_context=('ssl/server.crt', 'ssl/server.key'))

@@ -1,26 +1,38 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Tensor Flow Object Detection from a video</title>
     <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-    <style>
-        video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-        canvas{
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index:1
-        }
-    </style>
 </head>
 <body>
-<video id="myVideo" crossOrigin="anonymous" src="https://webrtchacks.com/wp-content/uploads/2014/11/webrtcDogRemover-working.mp4" muted controls></video>
-<script id="objDetect" src="/static/objDetect.js" data-source="myVideo"  data-scoreThreshold="0.40"></script>
+  <style>
+       canvas{
+           position: fixed;
+           top: 0;
+           left: 0;
+           z-index: 1;
+       }
+   </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <video id="myVideo" crossOrigin="anonymous" src="mov_bbb.mp4" muted controls></video>
+  <script id="objDetect" src="/static/objDetect.js" data-source="myVideo"  data-scoreThreshold="0.30"></script>
+  <script>$(document).on("change", ".file_multi_video", function(evt) {
+  var $source = $('#myVideo');
+  $source[0].src = URL.createObjectURL(this.files[0]);
+  $source.parent()[0].load();
+});
+  </script>
+
+<div id="input">
+  <input type="file" name="file[]" class="file_multi_video" accept="video/mp4">
+</div>
+<br/>
+<h4>Tags: </h4>
+<br/>
+<div id="tagsFromVideo">
+</div>
 </body>
 </html>

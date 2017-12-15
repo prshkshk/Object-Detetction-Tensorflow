@@ -1,9 +1,3 @@
-/**
- * Created by chad hart on 11/30/17.
- * Client side of Tensor Flow Object Detection Web API
- * Written for webrtcHacks - https://webrtchacks.com
- */
-
 //Parameters
 const s = document.getElementById('objDetect');
 const sourceVideo = s.getAttribute("data-source");  //the source video to use
@@ -14,12 +8,12 @@ const apiServer = s.getAttribute("data-apiServer") || window.location.origin + '
 
 //Video element selector
 v = document.getElementById(sourceVideo);
-
 //for starting events
 let isPlaying = false,
     gotMetadata = false;
 
 //Canvas setup
+var tags = [];
 
 //create a canvas to grab an image for upload
 let imageCanvas = document.createElement('canvas');
@@ -38,7 +32,7 @@ function drawBoxes(objects) {
 
     //filter out objects that contain a class_name and then draw boxes and labels on each
     objects.filter(object => object.class_name).forEach(object => {
-
+        tags.push(object.class_name);
         let x = object.x * drawCanvas.width;
         let y = object.y * drawCanvas.height;
         let width = (object.width * drawCanvas.width) - x;
@@ -51,9 +45,11 @@ function drawBoxes(objects) {
 
         drawCtx.fillText(object.class_name + " - " + Math.round(object.score * 100) + "%", x + 5, y + 20);
         drawCtx.strokeRect(x, y, width, height);
-
+        console.log(tags);
     });
+
 }
+
 
 //Add file blob to a form and post
 function postFile(file) {
@@ -68,10 +64,8 @@ function postFile(file) {
     xhr.onload = function () {
         if (this.status === 200) {
             let objects = JSON.parse(this.response);
-
             //draw the boxes
             drawBoxes(objects);
-
             //Save and send the next image
             imageCtx.drawImage(v, 0, 0, v.videoWidth, v.videoHeight, 0, 0, uploadWidth, uploadWidth * (v.videoHeight / v.videoWidth));
             imageCanvas.toBlob(postFile, 'image/jpeg');
@@ -80,6 +74,9 @@ function postFile(file) {
             console.error(xhr);
         }
     };
+    tags = tags.filter((x, i, a) => tags.indexOf(x) == i)
+    console.log(tags);
+    document.getElementById('tagsFromVideo').innerHTML = tags;
     xhr.send(formdata);
 }
 
@@ -102,7 +99,7 @@ function startObjectDetection() {
     drawCtx.fillStyle = "cyan";
 
     //Save and send the first image
-    imageCtx.drawImage(v, 0, 0, v.videoWidth, v.videoHeight, 0, 0, uploadWidth, uploadWidth * (v.videoHeight / v.videoWidth));
+    imageCtx.drawImage(v, 0, 0, v.videoWidth, v.videoHeight - 50, 0, 0, uploadWidth, uploadWidth * (v.videoHeight / v.videoWidth));
     imageCanvas.toBlob(postFile, 'image/jpeg');
 
 }
@@ -113,8 +110,13 @@ function startObjectDetection() {
 v.onloadedmetadata = () => {
     console.log("video metadata ready");
     gotMetadata = true;
-    if (isPlaying)
+    if (isPlaying){
         startObjectDetection();
+    }
+    else{
+        document.getElementById('tagsFromVideo').innerHTML = tags;
+    }
+
 };
 
 //see if the video has started playing
@@ -124,5 +126,5 @@ v.onplaying = () => {
     if (gotMetadata) {
         startObjectDetection();
     }
-};
 
+};

@@ -1,0 +1,38 @@
+<annotation>
+	<folder>Milk</folder>
+	<filename>104.jpg</filename>
+	<path>C:\Users\alpan\OneDrive\Documents\Big Data Lectures\Big_Data_Project\Images\Milk\104.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>616</width>
+		<height>347</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>milk</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>66</xmin>
+			<ymin>11</ymin>
+			<xmax>305</xmax>
+			<ymax>335</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>milk</name>
+		<pose>Unspecified</pose>
+		<truncated>1</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>317</xmin>
+			<ymin>28</ymin>
+			<xmax>541</xmax>
+			<ymax>347</ymax>
+		</bndbox>
+	</object>
+</annotation>

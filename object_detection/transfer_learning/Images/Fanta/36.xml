@@ -1,0 +1,26 @@
+<annotation>
+	<folder>Fanta</folder>
+	<filename>36.jpg</filename>
+	<path>C:\Users\alpan\OneDrive\Documents\Big Data Lectures\Big_Data_Project\Images\Fanta\36.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1600</width>
+		<height>900</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>fanta</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>1153</xmin>
+			<ymin>119</ymin>
+			<xmax>1329</xmax>
+			<ymax>797</ymax>
+		</bndbox>
+	</object>
+</annotation>

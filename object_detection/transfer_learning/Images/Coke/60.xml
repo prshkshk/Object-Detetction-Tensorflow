@@ -1,0 +1,38 @@
+<annotation>
+	<folder>Coke</folder>
+	<filename>60.jpg</filename>
+	<path>C:/Users/alpan/OneDrive/Documents/Big Data Lectures/Big_Data_Project/Images/Coke/60.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>2400</width>
+		<height>1800</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>coke</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>138</xmin>
+			<ymin>178</ymin>
+			<xmax>558</xmax>
+			<ymax>948</ymax>
+		</bndbox>
+	</object>
+	<object>
+		<name>coke</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>688</xmin>
+			<ymin>68</ymin>
+			<xmax>1135</xmax>
+			<ymax>961</ymax>
+		</bndbox>
+	</object>
+</annotation>
